@@ -20,10 +20,10 @@ extension Publishers {
         }
 
         func receive<S>(subscriber: S) where S : Subscriber, Publishers.TestPublisher.Failure == S.Failure, Publishers.TestPublisher.Output == S.Input {
+            subscriber.receive(subscription: TestPublisherSubscription())
+
             _ = subscriber.receive("Hello")
             let error = self.error
-
-            subscriber.receive(subscription: TestPublisherSubscription())
 
             DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
                 if let error = error {

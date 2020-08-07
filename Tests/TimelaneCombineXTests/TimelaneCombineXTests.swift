@@ -4,7 +4,7 @@ import CombineX
 import TimelaneCoreTestUtils
 import XCTest
 
-final class TimelaneCombineTests: XCTestCase {
+final class TimelaneCombineXTests: XCTestCase {
 
     /// Test the events emitted by a sync array publisher
     func testEmitsEventsFromCompletingPublisher() {
@@ -281,8 +281,8 @@ final class TimelaneCombineTests: XCTestCase {
         }
         wait(for: [fauxExpectation], timeout: 3)
 
-        XCTAssertEqual(recorder.logged.count, 8)
-        guard recorder.logged.count == 8 else {
+        XCTAssertEqual(recorder.logged.count, 9)
+        guard recorder.logged.count == 9 else {
             return
         }
 
@@ -295,6 +295,8 @@ final class TimelaneCombineTests: XCTestCase {
         XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Output, Post Subscription, 2"))
         XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Output, Post Subscription, 3"))
         XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Completed, Post Subscription, "))
+
+        XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Cancelled, Pre Subscription, "))
     }
 
 
